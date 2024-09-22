@@ -68,3 +68,9 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+  *{
+    font-family: "Ubuntu Sans", sans-serif;
+
+  }

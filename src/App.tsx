@@ -1,15 +1,20 @@
-import { Button } from "./components/ui/button"
+// import { Button } from "./components/ui/button";
+// import Footer from "./pages/shared/Footer";
+// import Navbar from "./pages/shared/Navbar";
 
+// function App() {
+//   return (
+//     <>
+//       <div>
+//         <div className=" container mx-auto ">
+//           <Navbar></Navbar>
+//           {/* <Homepage /> */}
+//         </div>
 
-function App() {
+//         <Footer />
+//       </div>
+//     </>
+//   );
+// }
 
-
-  return (
-    <>
-    <Button>Click me</Button>
-     
-    </>
-  )
-}
-
-export default App
+// export default App;
