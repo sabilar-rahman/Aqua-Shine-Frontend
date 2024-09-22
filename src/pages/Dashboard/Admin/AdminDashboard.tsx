@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const sidebarLinks = (
     <>
       <li>
@@ -89,4 +89,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

@@ -42,7 +42,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/booking"
+          to="/compare"
           className={({ isActive }) =>
             isActive
               ? "text-[#1f746a] "
