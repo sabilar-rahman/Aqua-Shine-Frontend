@@ -7,6 +7,8 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
+  const role = user?.role;
+
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -60,9 +62,11 @@ const Navbar = () => {
           Compare
         </NavLink>
 
-        
+
       </li>
-      {/* <li>
+
+      {
+        user? (<li>
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
@@ -73,8 +77,18 @@ const Navbar = () => {
         >
           Dashboard
         </NavLink>
-      </li> */}
+      </li> 
 
+
+        ):(
+          null
+        )
+      }
+
+
+
+
+       
 
 
 
