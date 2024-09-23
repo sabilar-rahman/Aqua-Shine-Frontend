@@ -2,7 +2,7 @@ import path from "path";
 import { createBrowserRouter } from "react-router-dom";
 import RootMain from "./RootMain";
 
-import ErrorPage from "@/utils/ErrorPage";
+
 import Services from "@/pages/Services/Services";
 import Booking from "@/pages/Booking/Booking";
 import Compare from "@/pages/Compare/Compare";
@@ -12,6 +12,7 @@ import Register from "@/pages/AuthPage/Register";
 import { routesGenerator } from "@/utils/routeGenerator";
 import adminRoutes from "./adminRoutes";
 import Login from "@/pages/AuthPage/Login";
+import ErrorPage from "@/utils/ErrorPage";
 
 
 
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootMain />,
-    errorElement: ErrorPage(),
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/services",
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/admin",
+    path: "/dashboard/admin",
     element: <DashboardLayout />,
     children: routesGenerator(adminRoutes),
   },

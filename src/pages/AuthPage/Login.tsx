@@ -28,7 +28,7 @@ const Login = () => {
       dispatch(setUser({ user, token }));
       if (user) {
         toast.success('Login Successfull')
-        navigate(location.state?.from?.pathname || "/dashboard", {
+        navigate(location.state?.from?.pathname || "/", {
           replace: true,
         });
         reset();

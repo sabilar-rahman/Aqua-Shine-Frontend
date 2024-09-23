@@ -1,12 +1,12 @@
-import { logout } from "@/redux/api/auth/authSlice";
+import { logout, useCurrentUser } from "@/redux/api/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
-
+  // const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector(useCurrentUser);
   const role = user?.role;
 
   const handleLogout = () => {
@@ -68,7 +68,7 @@ const Navbar = () => {
       {
         user? (<li>
         <NavLink
-          to="/dashboard"
+          to={`/dashboard/${role}`}
           className={({ isActive }) =>
             isActive
               ? "text-[#1f746a] "
