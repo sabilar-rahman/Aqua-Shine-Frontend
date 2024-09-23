@@ -13,6 +13,7 @@ import { routesGenerator } from "@/utils/routeGenerator";
 import adminRoutes from "./adminRoutes";
 import Login from "@/pages/AuthPage/Login";
 import ErrorPage from "@/utils/ErrorPage";
+import { userRoutes } from "./userRoutes";
 
 
 
@@ -50,6 +51,12 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: routesGenerator(adminRoutes),
   },
+  {
+    path:"/dashboard/user",
+    element:<DashboardLayout/>,
+    children:routesGenerator(userRoutes),
+
+  }
 
 
 ]);

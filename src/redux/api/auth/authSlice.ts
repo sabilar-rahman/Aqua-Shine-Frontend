@@ -1,6 +1,3 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import { RootState } from "../../store";
-// import { TAutState } from "../../../types";
 
 import { RootState } from "@/redux/store";
 import { TAutState, TUser } from "@/types";

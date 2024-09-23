@@ -1,6 +1,7 @@
 import { useCurrentUser } from '@/redux/api/auth/authSlice';
 import { useAppSelector } from '@/redux/hook';
 import adminRoutes from '@/routes/adminRoutes';
+import { userRoutes } from '@/routes/userRoutes';
 import { sidebarItemGenerator, TSidebarItem } from '@/utils/sidebarItemGenerator';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -18,9 +19,9 @@ const DashboardLayout = () => {
       case "admin":
         sidebarItems = sidebarItemGenerator(adminRoutes, role);
         break;
-      // case "user":
-      //   sidebarItems = sidebarItemGenerator(userPaths, role);
-      //   break;
+      case "user":
+        sidebarItems = sidebarItemGenerator(userRoutes, role);
+        break;
       default:
         break;
     }
