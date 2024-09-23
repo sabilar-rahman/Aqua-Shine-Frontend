@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import adminRoutes from "@/routes/adminRoutes";
-import { sidebarItemGenerator } from "../../utils/sidebarItemGenerator";
-// import { adminPaths } from "../../routes/admin.route";
+import { sidebarItemGenerator } from "@/utils/sidebarItemGenerator";
+
 
 const userRole = {
   ADMIN: "admin",
@@ -22,8 +21,9 @@ const Sidebar = () => {
       break;
   }
   return (
-    
-    <></>
+   
+    <>
+    </>
   );
 };
 

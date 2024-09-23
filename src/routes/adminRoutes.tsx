@@ -1,8 +1,8 @@
 import AdminDashboard from "@/pages/Dashboard/Admin/AdminDashboard";
-import BookingManagement from "@/pages/Dashboard/Admin/BookingManagement";
+// import BookingManagement from "@/pages/Dashboard/Admin/BookingManagement";
 import ServiceManagement from "@/pages/Dashboard/Admin/ServiceManagement";
 import SlotManagement from "@/pages/Dashboard/Admin/SlotManagement";
-import UserManagement from "@/pages/Dashboard/Admin/UserManagement";
+// import UserManagement from "@/pages/Dashboard/Admin/UserManagement";
 
 
 const adminRoutes = [
@@ -24,16 +24,7 @@ const adminRoutes = [
       {
         name: "User Management",
         children: [
-          {
-            name: "Booking Management",
-            path: "bookingManagement",
-            element: <BookingManagement/>,
-          },
-          {
-            name: "Manage User",
-            path: "userManagement",
-            element: <UserManagement/>,
-          },
+         
         ],
       },
     ];

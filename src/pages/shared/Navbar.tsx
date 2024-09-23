@@ -1,7 +1,15 @@
+import { logout } from "@/redux/api/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   const navItem = (
     <>
       <li>
@@ -51,8 +59,10 @@ const Navbar = () => {
         >
           Compare
         </NavLink>
+
+        
       </li>
-      <li>
+      {/* <li>
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
@@ -63,7 +73,11 @@ const Navbar = () => {
         >
           Dashboard
         </NavLink>
-      </li>
+      </li> */}
+
+
+
+
       {/* <li>
         <NavLink to="/aboutUs" className={({ isActive }) => (isActive ? "text-[#1f746a] " : "hover:text-[#2A9D8F]")}>
           About Us
@@ -109,15 +123,26 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 text-lg">{navItem}</ul>
       </div>
       <div className="navbar-end ">
-        {/* <a className="btn bg-[#2A9D8F] text-white hover:bg-[#1f746a]">
-          Sign In
-        </a> */}
-        <button
-          className="rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button"
-        >
-          Login
-        </button>
+        {user ? (
+          <>
+            <button
+              onClick={handleLogout}
+              className="rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              {" "}
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              className="rounded-md border border-slate-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button"
+            >
+              <Link to="/login">Login</Link>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
