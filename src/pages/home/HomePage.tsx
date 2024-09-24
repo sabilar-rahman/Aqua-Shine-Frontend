@@ -1,12 +1,15 @@
-import React from "react";
+
 import Hero from "./Hero";
-import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+
 import FeaturedService from "./FeaturedService";
+import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+
 
 const HomePage = () => {
   return (
     <div>
-      {/* <PageTitle title="Home Page | Aqua Shine" /> */}
+     
+      <PageTitle title="Home Page | Aqua Shine"></PageTitle>
 
       <Hero />
       <div>
