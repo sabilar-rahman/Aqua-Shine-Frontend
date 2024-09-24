@@ -3,12 +3,15 @@ import { setRegistrationData } from '@/redux/api/auth/registerSlice';
 import { TUser } from '@/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Register = () => {
-  const { handleSubmit, reset, register } = useForm<TUser>();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [signUp] = useSignUpMutation();
+
+  const { handleSubmit, reset, register } = useForm<TUser>();
 
 //   const onSubmit = async (data: TUser) => {
 //     console.log('Registration Data:', data);
@@ -26,12 +29,15 @@ const Register = () => {
       // Dispatch the registerUser action to store the data in Redux
       dispatch(setRegistrationData(data));
       const user = await signUp(data).unwrap();
-      console.log("User:", user);
+      console.log("user data:", user);
+      toast.success('Registration Successful');
+      navigate("/login", { replace: true });
+
 
       // Reset the form fields after submission
       reset();
     } catch (error) {
-      console.error("Registration failed:", error);
+      toast.error('Registration Failed');
     }
   };
 
@@ -117,13 +123,28 @@ const Register = () => {
           <label htmlFor="address" className="block text-sm font-medium text-gray-600">
             Address
           </label>
-          <input
+          <textarea
             id="address"
             {...register('address')}
             placeholder="Enter your address"
             className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        <div>
+          
+          <label htmlFor="image" className="block text-sm font-medium text-gray-600">
+            Image URL
+          </label>
+          <input
+            id="image"
+            {...register('image')}
+            placeholder="Enter your Image URL"
+            className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+
+
 
         <button
           type="submit"

@@ -1,4 +1,5 @@
 // import { Button } from "./components/ui/button";
+// import HomePage from "./pages/home/HomePage";
 // import Footer from "./pages/shared/Footer";
 // import Navbar from "./pages/shared/Navbar";
 
@@ -8,7 +9,7 @@
 //       <div>
 //         <div className=" container mx-auto ">
 //           <Navbar></Navbar>
-//           {/* <Homepage /> */}
+//            <HomePage />
 //         </div>
 
 //         <Footer />

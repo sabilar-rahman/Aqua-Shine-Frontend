@@ -14,6 +14,8 @@ import adminRoutes from "./adminRoutes";
 import Login from "@/pages/AuthPage/Login";
 import ErrorPage from "@/utils/ErrorPage";
 import { userRoutes } from "./userRoutes";
+import HomePage from "@/pages/home/HomePage";
+
 
 
 
@@ -23,6 +25,11 @@ const router = createBrowserRouter([
     element: <RootMain />,
     errorElement: <ErrorPage/>,
     children: [
+      {
+        path: "/",
+        element: <HomePage/>,
+      }
+      ,
       {
         path: "/services",
         element: <Services />,
