@@ -3,6 +3,8 @@ import Hero from "./Hero";
 
 import FeaturedService from "./FeaturedService";
 import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+import ReviewSection from "./review/Review";
+
 
 
 const HomePage = () => {
@@ -19,6 +21,9 @@ const HomePage = () => {
         </h1>
       <FeaturedService/>  
       </div>
+      <ReviewSection></ReviewSection>
+
+      
       
     </div>
   );

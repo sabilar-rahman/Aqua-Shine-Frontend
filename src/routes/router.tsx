@@ -1,7 +1,5 @@
-import path from "path";
 import { createBrowserRouter } from "react-router-dom";
 import RootMain from "./RootMain";
-
 
 import Services from "@/pages/Services/Services";
 import Booking from "@/pages/Booking/Booking";
@@ -15,24 +13,26 @@ import Login from "@/pages/AuthPage/Login";
 import ErrorPage from "@/utils/ErrorPage";
 import { userRoutes } from "./userRoutes";
 import HomePage from "@/pages/home/HomePage";
-
-
-
+import Review from "@/pages/home/review/Review";
+import ServiceDetail from "@/pages/Services/ServiceDetails";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootMain />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <HomePage/>,
-      }
-      ,
+        element: <HomePage />,
+      },
       {
         path: "/services",
         element: <Services />,
+      },
+      {
+        path: "services/:id",
+        element: <ServiceDetail />,
       },
 
       {
@@ -43,11 +43,15 @@ const router = createBrowserRouter([
         path: "/compare",
         element: <Compare />,
       },
+      {
+        path: "/reviews",
+        element: <Review />,
+      },
     ],
   },
   {
     path: "/login",
-    element: < Login/>,
+    element: <Login />,
   },
   {
     path: "/register",
@@ -59,13 +63,10 @@ const router = createBrowserRouter([
     children: routesGenerator(adminRoutes),
   },
   {
-    path:"/dashboard/user",
-    element:<DashboardLayout/>,
-    children:routesGenerator(userRoutes),
-
-  }
-
-
+    path: "/dashboard/user",
+    element: <DashboardLayout />,
+    children: routesGenerator(userRoutes),
+  },
 ]);
 
 export default router;

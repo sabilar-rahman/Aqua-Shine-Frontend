@@ -1,13 +1,14 @@
 import ManageProfile from "@/pages/Dashboard/User/ManageProfile";
 import PastBookings from "@/pages/Dashboard/User/PastBookings";
 import UpcomingBookings from "@/pages/Dashboard/User/UpcomingBookings";
-import UserDashboard from "@/pages/Dashboard/User/UserDashboard";
+
+import Dashboard from "@/pages/Dashboard/User/Dashboard";
 
 export const userRoutes = [
     {
       name: "Dashboard",
       path: "dashboard",
-      element: <UserDashboard />,
+      element: <Dashboard />,
     },
     {
       name: "Manage profile",
