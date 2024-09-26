@@ -12,7 +12,7 @@ const ServiceForm = ({ isOpen, onClose, onSubmit, initialData }) => {
       name: "",
       description: "",
       price: "",
-      image: "",
+      img: "",
       duration: "",
     },
   });
@@ -78,14 +78,14 @@ const ServiceForm = ({ isOpen, onClose, onSubmit, initialData }) => {
             <label>Image URL</label>
             <input
               type="text"
-              {...register("image", { required: "Image URL is required" })}
+              {...register("img")}
               className="input input-bordered w-full"
             />
-            {errors.image && <p className="text-red-500">{errors.image.message}</p>}
+            {errors.img && <p className="text-red-500">{errors.img.message}</p>}
           </div>
 
           <div className="form-group mt-2">
-            <label>Duration (in hours)</label>
+            <label>Duration </label>
             <input
               type="number"
               {...register("duration", { required: "Duration is required" })}

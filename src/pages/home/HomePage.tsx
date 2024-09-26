@@ -1,17 +1,13 @@
-
 import Hero from "./Hero";
 
 import FeaturedService from "./FeaturedService";
 import PageTitle from "../shared/PageTitleHelmet/PageTitle";
 import ReviewSection from "./review/Review";
 
-
-
 const HomePage = () => {
   return (
     <div>
-     
-      <PageTitle title="Home Page | Aqua Shine"></PageTitle>
+      <PageTitle title="Home Page | Turbo Shine"></PageTitle>
 
       <Hero />
       <div>
@@ -19,12 +15,9 @@ const HomePage = () => {
           Featured Services
           <hr className="w-20 mt-2 border-[3px] mx-auto border-[#02c39a] " />
         </h1>
-      <FeaturedService/>  
+        <FeaturedService />
       </div>
       <ReviewSection></ReviewSection>
-
-      
-      
     </div>
   );
 };

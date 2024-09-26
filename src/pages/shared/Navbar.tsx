@@ -129,7 +129,7 @@ const Navbar = () => {
         </div>
         <a className="btn btn-ghost normal-case text-xl font-bold">
           {" "}
-          <span className="text-[#264653]">Aqua</span>{" "}
+          <span className="text-[#264653]">Turbo</span>{" "}
           <span className="text-[#2A9D8F]">Shine</span>{" "}
         </a>
       </div>

@@ -7,7 +7,8 @@ import {
   useGetAllServicesQuery,
   useUpdateServiceMutation,
 } from "@/redux/api/adminApi/service.Api";
-import { TService } from "../../../types";
+import { TService } from "@/types";
+
 
 
 const ServiceManagement = () => {
