@@ -1,7 +1,10 @@
 import { logout, useCurrentUser } from "@/redux/api/auth/authSlice";
+import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
+import Countdown from "react-countdown";
 
 
 const Navbar = () => {
@@ -9,6 +12,44 @@ const Navbar = () => {
   // const user = useAppSelector((state) => state.auth.user);
   const user = useAppSelector(useCurrentUser);
   const role = user?.role;
+
+  const userEmail = useAppSelector((state) => state.auth.user?.email);
+
+
+    // Fetching bookings
+    const { data, error } = useGetAllbookingsByEmailQuery(userEmail as string);
+    const [nextBooking, setNextBooking] = useState(null);
+
+    useEffect(() => {
+      if (data?.data) {
+        const currentDate = new Date();
+        const sortedBookings = data.data
+          .filter((booking) => new Date(`${booking.slot.date}T${booking.slot.startTime}`) > currentDate)
+          .sort((a, b) => new Date(`${a.slot.date}T${a.slot.startTime}`).getTime() - new Date(`${b.slot.date}T${b.slot.startTime}`).getTime());
+        
+        if (sortedBookings.length > 0) {
+          setNextBooking(sortedBookings[0]); // Next booking
+        }
+      }
+  
+      if (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to fetch bookings.",
+        });
+      }
+    }, [data, error]);
+
+
+
+     // Countdown renderer
+  const countdownRenderer = ({ days, hours, minutes, seconds }: any) => (
+    <span>
+      {days}d {hours}h {minutes}m {seconds}s
+    </span>
+  );
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -134,6 +175,21 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-lg">{navItem}</ul>
       </div>
+
+        {/* Countdown Timer for Next Booking in Navbar */}
+        {nextBooking && (
+        <div className="navbar-center hidden lg:flex text-lg font-semibold text-[#2A9D8F]">
+          Next Booking in:{" "}
+          <Countdown
+            date={new Date(`${nextBooking.slot.date}T${nextBooking.slot.startTime}`).getTime()}
+            renderer={countdownRenderer}
+          />
+        </div>
+      )}
+
+
+  {/* User login/logout */}
+
       <div className="navbar-end ">
         {user ? (
           <>
