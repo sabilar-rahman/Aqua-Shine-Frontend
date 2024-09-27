@@ -1,7 +1,9 @@
+import PageTitle from "@/pages/shared/PageTitleHelmet/PageTitle";
 import { useCurrentUser } from "@/redux/api/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import adminRoutes from "@/routes/adminRoutes";
 import { userRoutes } from "@/routes/userRoutes";
+import { FaArrowLeft } from "react-icons/fa"; 
 import {
   sidebarItemGenerator,
   TSidebarItem,
@@ -10,8 +12,8 @@ import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const DashboardLayout = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
   const user = useAppSelector(useCurrentUser);
   const role = user?.role;
@@ -38,6 +40,8 @@ const DashboardLayout = () => {
   };
 
   return (
+   
+    
     <div className="drawer lg:drawer-open font-lora">
     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
     <div className="drawer-content bg-base-200 p-5">
@@ -58,7 +62,13 @@ const DashboardLayout = () => {
       ></label>
       <ul className="menu  text-black font-semibold min-h-full w-72 p-8">
         <li className="py-1 text-[17px]">
-          <Link to="/">Home</Link>
+        <Link
+      to="/"
+      className="flex items-center justify-center py-2 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-md hover:shadow-md hover:bg-opacity-90 transition-all"
+    >
+      <FaArrowLeft className="w-5 h-5 mr-2" /> {/* Using the Font Awesome icon */}
+      Back to HomePage
+    </Link>
         </li>
         {sidebarItems.map((item) => (
           <li className="py-1 text-[17px]" key={item.key}>

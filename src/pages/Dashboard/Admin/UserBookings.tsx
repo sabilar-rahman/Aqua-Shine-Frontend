@@ -1,6 +1,7 @@
 
 import { useGetAllBookingsQuery } from "@/redux/api/adminApi/bookingApi";
 import { TBooking } from "../../../types";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 const UserBookings = () => {
   const { data: response, isLoading } = useGetAllBookingsQuery(undefined);
@@ -8,12 +9,7 @@ const UserBookings = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center lg:py-32">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
+      <LoaderSpinner/>
     );
   }
 
@@ -22,6 +18,8 @@ const UserBookings = () => {
   }
 
   return (
+
+    
     <div className="overflow-x-auto bg-base-200">
       <h1 className="text-xl md:text-3xl font-lora font-bold text-primary text-center">
         {" "}
@@ -31,15 +29,15 @@ const UserBookings = () => {
         <table className="table w-full ">
           {/* Table Header */}
           <thead>
-            <tr className="text-xl">
-              <th>Customer Info</th>
-              <th>Customer Email</th>
-              <th>Service Name</th>
-              <th>Payment Status</th>
-              <th>Registration Plate</th>
-              <th>Transaction ID</th>
-            </tr>
-          </thead>
+        <tr className="text-xl">
+          <th className="whitespace-nowrap">Customer Info</th>
+          <th className="whitespace-nowrap"> Email</th>
+          <th className="whitespace-nowrap">Service Name</th>
+          <th className="whitespace-nowrap">Pay Status</th>
+          <th className="whitespace-nowrap">Register Plate</th>
+          <th className="whitespace-nowrap">Trans ID</th>
+        </tr>
+      </thead>
           {/* Table Body */}
           <tbody>
             {bookings.map((booking) => (

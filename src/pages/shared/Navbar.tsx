@@ -88,9 +88,7 @@ const Navbar = () => {
 
 
 
-       
-
-
+      
 
       {/* <li>
         <NavLink to="/aboutUs" className={({ isActive }) => (isActive ? "text-[#1f746a] " : "hover:text-[#2A9D8F]")}>

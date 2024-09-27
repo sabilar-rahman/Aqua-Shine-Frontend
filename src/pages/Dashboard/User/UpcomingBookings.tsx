@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 
 import Swal from "sweetalert2";
@@ -5,6 +6,7 @@ import Swal from "sweetalert2";
 import Countdown from "react-countdown";
 import { useAppSelector } from "@/redux/hook";
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 interface Booking {
   _id: string;
@@ -55,14 +57,7 @@ const UpcomingBookings = () => {
   }, [error]);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center lg:py-32">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+    return <LoaderSpinner />;
   }
 
   const renderer = ({ days, hours, minutes, seconds }: any) => {

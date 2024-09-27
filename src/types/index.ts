@@ -14,7 +14,7 @@ export type TUser = {
   name: string;
   email: string;
   phone: string;
-  image: string;
+  img: string;
   role: string;
   password: string;
   address: string;

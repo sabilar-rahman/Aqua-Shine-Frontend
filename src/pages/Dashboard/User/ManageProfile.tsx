@@ -8,6 +8,7 @@ import { TUser } from "../../../types";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useUpdateUserInfoMutation } from "@/redux/api/adminApi/userApi";
 import { updateUserInfo } from "@/redux/api/auth/authSlice";
+import { toast } from "sonner";
 
 const ManageProfile = () => {
   const user = useAppSelector((state) => state.auth.user) as TUser;
@@ -26,7 +27,7 @@ const ManageProfile = () => {
       email: user?.email || "",
       phone: user?.phone || "",
       address: user?.address || "",
-      image: user?.image || "",
+      img: user?.img || "",
     },
   });
 
@@ -37,19 +38,17 @@ const ManageProfile = () => {
       email: user?.email || "",
       phone: user?.phone || "",
       address: user?.address || "",
-      image: user?.image || "",
+      img: user?.img || "",
     });
   }, [user, reset]);
 
   const onSubmit: SubmitHandler<TUser> = async (data: object) => {
     if (!user?.sub) {
-      // Handle the case where userId is not available
-      Swal.fire({
-        icon: "error",
-        title: "Update Failed",
-        text: "User ID is missing.",
-        confirmButtonColor: "#d33",
-      });
+      // Handle the case where userId is not available.
+      toast.error("Failed to update profile");
+
+
+   
       return;
     }
 
@@ -59,20 +58,13 @@ const ManageProfile = () => {
 
       // Dispatch action to update the user information in the Redux store
       dispatch(updateUserInfo(data));
+      toast.success("Profile updated successfully");
 
-      Swal.fire({
-        icon: "success",
-        title: "Profile Updated",
-        text: "Your profile has been updated successfully.",
-        confirmButtonColor: "#14a0d1",
-      });
+
+
+  
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Update Failed",
-        text: "There was an error updating your profile.",
-        confirmButtonColor: "#d33",
-      });
+     toast.error("Failed to update profile");
     }
   };
 
@@ -167,7 +159,7 @@ const ManageProfile = () => {
           <input
             id="img"
             type="text"
-            {...register("image")}
+            {...register("img")}
             className="mt-1 p-3 block w-full border border-gray-300 rounded-md shadow-sm"
           />
         </div>

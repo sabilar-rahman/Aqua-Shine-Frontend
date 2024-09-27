@@ -1,12 +1,9 @@
 import { useState } from "react";
-
-
 import { useNavigate } from "react-router-dom";
-
 import { useAppSelector } from "@/redux/hook";
 import { TService } from "@/types";
 import { useGetAllServicesQuery } from "@/redux/api/adminApi/service.Api";
-// import { useAppSelector } from "../../redux/hooks";
+import LoaderSpinner from "../shared/loadingPage/LoadingSpinner";
 
 const Service = () => {
   const { data, isLoading } = useGetAllServicesQuery(undefined);
@@ -16,15 +13,9 @@ const Service = () => {
 
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
+
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+    return <LoaderSpinner />;
   }
 
   if (!data || data.length === 0) {
@@ -33,14 +24,20 @@ const Service = () => {
 
   const handleServiceClick = (serviceId: string) => {
     if (user) {
-      navigate(`/services/${serviceId}`); // If user is logged in, go to service details
+      navigate(`/services/${serviceId}`);
     } else {
       navigate("/login", {
-        state: { from: `/services/${serviceId}` }, // Pass the target service page in state
+        state: { from: `/services/${serviceId}` },
       });
     }
   };
-  // @ts-expect-error: Ignoring type error due to mismatch in expected types from external library
+
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setSortKey("");
+    setFilter({ minPrice: 0, maxPrice: 1000 });
+  };
+
   const filteredServices: TService[] = data?.data?.filter(
     (service: TService) => {
       return (
@@ -66,95 +63,164 @@ const Service = () => {
   });
 
   return (
-    <div className="lg:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl lg:text-4xl text-center font-lora font-extrabold text-white">
+    <div className="lg:py-16 bg-gray-100 min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* <h2 className="text-2xl lg:text-4xl text-center font-lora font-extrabold text-primary mb-10">
           Top Picks: Our Featured Services
-        </h2>
+        </h2> */}
 
-        {/* Search and Filter Options */}
-        <div className="mt-8 mb-6 flex justify-between items-center">
-          <input
-            type="text"
-            placeholder="Search services..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="p-2 border border-gray-300 hover:border-primary rounded-lg"
-          />
-          <div className="flex space-x-4">
-            <select
-              value={sortKey}
-              onChange={(e) => setSortKey(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg"
-            >
-              <option value="">Sort by</option>
-              <option value="priceAsc">Price: Low to High</option>
-              <option value="priceDesc">Price: High to Low</option>
-              <option value="durationAsc">Duration: Short to Long</option>
-              <option value="durationDesc">Duration: Long to Short</option>
-            </select>
+        <div className="lg:flex lg:space-x-8">
+          {/* Sidebar for Search and Filter */}
+          <div className="lg:w-1/4  p-6 rounded-lg shadow-lg mb-10 lg:mb-0">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              Filter Options
+            </h3>
             <input
-              type="number"
-              placeholder="Min Price"
-              value={filter.minPrice}
-              onChange={(e) =>
-                setFilter((prev) => ({
-                  ...prev,
-                  minPrice: Number(e.target.value),
-                }))
-              }
-              className="p-2 border border-gray-300 rounded-lg"
+              type="text"
+              placeholder="Search services..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="p-3 border border-gray-300 rounded-lg w-full mb-4 focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <input
-              type="number"
-              placeholder="Max Price"
-              value={filter.maxPrice}
-              onChange={(e) =>
-                setFilter((prev) => ({
-                  ...prev,
-                  maxPrice: Number(e.target.value),
-                }))
-              }
-              className="p-2 border border-gray-300 rounded-lg"
-            />
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-700 mb-1">Sort By</label>
+                <select
+                  value={sortKey}
+                  onChange={(e) => setSortKey(e.target.value)}
+                  className="p-3 border border-gray-300 rounded-lg w-full"
+                >
+                  <option value="">Select</option>
+                  <option value="priceAsc">Price: Low to High</option>
+                  <option value="priceDesc">Price: High to Low</option>
+                  <option value="durationAsc">Duration: Short to Long</option>
+                  <option value="durationDesc">Duration: Long to Short</option>
+                </select>
+              </div>
+
+              <div className="flex space-x-4">
+                <input
+                  type="number"
+                  placeholder="Min Price"
+                  value={filter.minPrice}
+                  onChange={(e) =>
+                    setFilter((prev) => ({
+                      ...prev,
+                      minPrice: Number(e.target.value),
+                    }))
+                  }
+                  className="p-3 border border-gray-300 rounded-lg w-full"
+                />
+                <input
+                  type="number"
+                  placeholder="Max Price"
+                  value={filter.maxPrice}
+                  onChange={(e) =>
+                    setFilter((prev) => ({
+                      ...prev,
+                      maxPrice: Number(e.target.value),
+                    }))
+                  }
+                  className="p-3 border border-gray-300 rounded-lg w-full"
+                />
+              </div>
+
+              {/* Reset Filter Button */}
+              <button
+                onClick={handleResetFilters}
+                className="mt-4 bg-red-500 text-white p-2 rounded-lg w-full hover:bg-red-600"
+              >
+                Reset Filters
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
-          {sortedServices.map((service: TService, index: number) => (
-            <div
-              key={index}
-              className="group relative bg-white rounded-lg shadow-md overflow-hidden"
-            >
-              <img
-                src={service.img}
-                alt={service.name}
-                className="w-full object-cover group-hover:opacity-75"
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900">
-                  {service.name}
-                </h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  {service.description}
-                </p>
-                <p className="mt-2 text-sm text-gray-600 font-bold">
-                  Price: ${service.price}
-                </p>
-                <p className="mt-2 text-sm text-gray-600">
-                  Duration: {service.duration} minutes
-                </p>
-                <div className="text-end">
+          {/* Product Cards Section */}
+          {/* <div className="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedServices.map((service: TService, index: number) => (
+              <div
+                key={index}
+                className="group relative bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105"
+              >
+                <img
+                  src={service.img}
+                  alt={service.name}
+                  className="w-full h-48 object-cover group-hover:opacity-75"
+                />
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {service.name}
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    {service.description}
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600 font-bold">
+                    Price: ${service.price}
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Duration: {service.duration} minutes
+                  </p>
+                  <div className="text-end mt-4">
+                    <button
+                      className="btn bg-primary text-white text-lg py-2 px-4 rounded hover:bg-hover"
+                      onClick={() => handleServiceClick(service._id)}
+                    >
+                      Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div> */}
+
+          <div className="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {sortedServices.map((service: TService, index: number) => (
+              <div
+                key={index}
+                className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-full"
+              >
+                {/* Image Section */}
+                <div className="relative p-2.5 h-64 overflow-hidden rounded-xl bg-clip-border">
+                  <img
+                    src={service.img}
+                    alt={service.name}
+                    className="h-full w-full object-cover rounded-md"
+                  />
+                </div>
+
+                {/* Content Section */}
+                <div className="p-4">
+                  <div className="mb-2 ">
+                    <p className="text-slate-800 text-xl font-semibold">
+                      {service.name}
+                    </p>
+                  </div>
+                  <p className="text-slate-600 leading-normal font-light">
+                    {service.description.length > 80
+                      ? service.description.substring(0, 80) + "..."
+                      : service.description}
+                  </p>
+                  <hr />
+
+                  <div className="mb-2 flex items-center justify-between">
+                    <p className="text-cyan-600  font-semibold">
+                      Price: {service.price} $
+                    </p>
+                    <p className=" text-sm ">Time: {service.duration} min</p>
+                  </div>
+
                   <button
-                    className="btn bg-primary text-xl text-white hover:bg-hover"
-                    onClick={() => handleServiceClick(service._id)} // Call function on button click
+                    className="rounded-md w-full mt-6 bg-[#1f746a] py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-[#2A9D8F] focus:bg-[#2A9D8F] focus:shadow-none active:bg-[#2A9D8F] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button"
+                    onClick={() => handleServiceClick(service._id)}
                   >
                     Details
                   </button>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
