@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-
 import Swal from "sweetalert2";
-
 import Countdown from "react-countdown";
 import { useAppSelector } from "@/redux/hook";
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
@@ -44,8 +42,6 @@ const UpcomingBookings = () => {
     }
   }, [data]);
 
-  console.log(data.data);
-
   useEffect(() => {
     if (error) {
       Swal.fire({
@@ -60,6 +56,17 @@ const UpcomingBookings = () => {
     return <LoaderSpinner />;
   }
 
+  // Handle case when data is undefined or empty
+  if (!data || !data.data) {
+    return (
+      <div className="p-6 bg-white rounded-lg shadow-md">
+        <h1 className="text-2xl text-center text-red-500 font-bold mb-6">
+          Failed to fetch upcoming bookings.
+        </h1>
+      </div>
+    );
+  }
+
   const renderer = ({ days, hours, minutes, seconds }: any) => {
     return (
       <div className="flex justify-around text-lg">
@@ -72,10 +79,12 @@ const UpcomingBookings = () => {
   };
 
   return (
+
+
     <div className="p-6 bg-white rounded-lg shadow-md">
       {upcomingBookings.length > 0 && (
         <h2 className="text-xl md:text-3xl font-semibold text-primary text-center mb-6">
-          Upcoming Bookings
+          Upcoming Bookings page
         </h2>
       )}
 
@@ -87,7 +96,6 @@ const UpcomingBookings = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {upcomingBookings.map((booking: Booking) => {
-          // Create a Date object for the slot start time
           const countdownDate = new Date(
             `${booking.slot.date}T${booking.slot.startTime}`
           ).getTime();
