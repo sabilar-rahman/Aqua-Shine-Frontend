@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
+
 const Navbar = () => {
   const dispatch = useAppDispatch();
   // const user = useAppSelector((state) => state.auth.user);
@@ -87,8 +88,7 @@ const Navbar = () => {
 
 
 
-
-      
+    
 
       {/* <li>
         <NavLink to="/aboutUs" className={({ isActive }) => (isActive ? "text-[#1f746a] " : "hover:text-[#2A9D8F]")}>
