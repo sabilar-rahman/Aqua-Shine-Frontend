@@ -2,15 +2,16 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/redux/api/auth/authApi";
 import { setUser } from "@/redux/api/auth/authSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom"; // Assuming you're using React Router
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { TUser } from "@/types";
 import { verifyToken } from "@/utils/verifyToken";
 import {  toast } from 'sonner'
+import { useAppDispatch } from "@/redux/hook";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const [login] = useLoginMutation();
 
   const { handleSubmit, reset, register } = useForm<TUser>({
@@ -24,7 +25,7 @@ const Login = () => {
     try {
       const res = await login(data).unwrap();
       const token = res.token;
-      const user = verifyToken(token);
+      const user  = verifyToken(token) as TUser;
       dispatch(setUser({ user, token }));
       if (user) {
         toast.success('Login Successfully')

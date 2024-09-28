@@ -9,7 +9,7 @@ import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 const CreateSlot = () => {
   const { data: servicesData, isLoading: servicesLoading } =
-    useGetAllServicesQuery();
+    useGetAllServicesQuery({});
   const [createSlot] = useCreateASlotMutation();
 
   const {
@@ -40,7 +40,7 @@ const CreateSlot = () => {
   }
 
   // Directly use the data as TService[]
-  // @ts-expect-error: Ignoring type error due to mismatch in expected types from external library
+  
   const services: TService[] = servicesData?.data || [];
   return (
     <div className="container mx-auto p-4 max-w-xl">

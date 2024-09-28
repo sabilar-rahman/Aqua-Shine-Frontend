@@ -27,7 +27,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   
   // Using the User type explicitly
-  const user: User | null = useAppSelector(useCurrentUser) ;
+  const user: User | null = useAppSelector(useCurrentUser) as User | null ;
   const role = user?.role;
   const userEmail = user?.email; // userEmail now exists on 'user'
 
@@ -95,7 +95,8 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
-      <li>
+
+      {/* <li>
         <NavLink
           to="/booking"
           className={({ isActive }) =>
@@ -106,7 +107,8 @@ const Navbar = () => {
         >
           Booking
         </NavLink>
-      </li>
+      </li> */}
+
       <li>
         <NavLink
           to="/compare"

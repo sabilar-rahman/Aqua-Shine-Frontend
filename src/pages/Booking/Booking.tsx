@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 
+import { useCurrentUser } from "@/redux/api/auth/authSlice";
 import { useCreateBookingMutation } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
+import { TUser } from "@/types";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 
@@ -11,10 +14,19 @@ const Booking = () => {
   const [createBooking] = useCreateBookingMutation();
   const { selectedSlot, service } = location.state || {};
 
-  const user = useAppSelector((state) => state.auth?.user);
-  // const user = useAppSelector(useCurrentUser);
+  // const user = useAppSelector((state) => state.auth?.user) ;
+  const user = useAppSelector(useCurrentUser);
+  
 
-  const { name, email, address, phone } = user || {};
+  const { name, email, address, phone } = user  as TUser;
+
+  // solution?
+
+//   const user: TUser | {} = user || {};
+// const { name, email, address, phone } = user as TUser;
+
+
+
 
   const {
     register,

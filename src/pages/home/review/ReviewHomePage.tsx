@@ -28,7 +28,7 @@ const ReviewHomePage = () => {
   }
 
   if (!reviews || reviews.length === 0) {
-    return <p>No reviews available at the moment.</p>;
+    return <p className='text-center'>No reviews available at the moment.</p>;
   }
 
   // Calculate overall site's rating (average rating)

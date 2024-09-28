@@ -5,6 +5,7 @@ import Countdown from "react-countdown";
 import { useAppSelector } from "@/redux/hook";
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
+import { TUser } from "@/types";
 
 interface Booking {
   _id: string;
@@ -22,7 +23,7 @@ interface Booking {
 }
 
 const UpcomingBookings = () => {
-  const userEmail = useAppSelector((state) => state.auth.user?.email);
+  const userEmail = useAppSelector((state) => (state.auth.user as TUser)?.email);
   const { data, error, isLoading } = useGetAllbookingsByEmailQuery(
     userEmail as string
   );

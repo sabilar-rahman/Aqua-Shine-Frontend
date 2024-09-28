@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TService } from "@/types";
 import { baseApi } from "../baseApi";
 
 // Define types for service data
-interface Service {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-}
+//  interface Service {
+//   id: string;
+//   name: string;
+//   description: string;
+//   price: number;
+// }
 
 interface AvailabilityParams {
   date: string;
@@ -16,29 +17,54 @@ interface AvailabilityParams {
 
 const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
+
     // Query for fetching all services
-    getAllServices: builder.query<Service[], void>({
-      query: () => ({
-        url: "/services",
-        method: "GET",
-      }),
-      // Provide the 'Services' tag so that the query can be invalidated
-      providesTags: ["Services"],
-    }),
+    // getAllServices: builder.query<TService[], void>({
+    //   query: () => ({
+    //     url: "/services",
+    //     method: "GET",
+    //   }),
+    //   // Provide the 'Services' tag so that the query can be invalidated
+    //   providesTags: ["Services"],
+    // }),
+
+
+    getAllServices: builder.query({
+        query: () => ({
+          url: "/services",
+          method: "GET",
+        }),
+        providesTags: ["Services"],
+
+      }
+    ),
+    
+    // <TService[], void>({
+    //   query: () => ({
+    //     url: "/services",
+    //     method: "GET",
+    //   }),
+    //   // Provide the 'Services' tag so that the query can be invalidated
+    //   providesTags: ["Services"],
+    // }),
+
+
+
+    
 
     // Mutation for creating a new service
-    createAService: builder.mutation<Service, Partial<Service>>({
+    createAService: builder.mutation<TService, Partial<TService>>({
       query: (data) => ({
         url: "/services",
         method: "POST",
         body: data,
       }),
-      // Invalidate 'Services' tag to refetch service data after creation
       invalidatesTags: ["Services"],
     }),
 
     // Query for fetching a service by ID
-    getAServiceById: builder.query<Service, string>({
+    getAServiceById: builder.query<TService, string>({
       query: (id: string) => ({
         url: `/services/${id}`,
         method: "GET",
@@ -57,10 +83,7 @@ const serviceApi = baseApi.injectEndpoints({
     }),
 
     // Mutation for updating a service
-    updateService: builder.mutation<
-      Service,
-      { id: string; data: Partial<Service> }
-    >({
+    updateService: builder.mutation<TService,{ id: string; data: Partial<TService>}>({
       query: ({ id, data }) => ({
         url: `/services/${id}`,
         method: "PUT",

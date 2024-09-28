@@ -10,12 +10,13 @@ import {
 } from "@/utils/sidebarItemGenerator";
 import  { useState } from "react";
 import { Link, Outlet} from "react-router-dom";
+import { TUser } from "@/types";
 
 const DashboardLayout = () => {
   // const dispatch = useAppDispatch();
   // const navigate = useNavigate();
 
-  const user = useAppSelector(useCurrentUser);
+  const user = useAppSelector(useCurrentUser)as TUser | null;
   const role = user?.role;
 
   let sidebarItems: TSidebarItem[] = [];

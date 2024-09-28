@@ -26,7 +26,7 @@ import {
 
 const ServiceManagement = () => {
   const { data: servicesResponse, isLoading: servicesLoading } =
-    useGetAllServicesQuery();
+    useGetAllServicesQuery({});
   const [addService] = useCreateAServiceMutation();
   const [updateService] = useUpdateServiceMutation();
   const [deleteService] = useDeleteServiceMutation();
@@ -151,7 +151,7 @@ const ServiceManagement = () => {
   }
 
 
-  // @ts-expect-error: Ignoring type error due to mismatch in expected types from external library
+  
   const services = servicesResponse?.data;
 
   return (

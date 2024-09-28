@@ -2,7 +2,7 @@ import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types";
 
 const Dashboard = () => {
-  const user: TUser | null = useAppSelector((state) => state.auth?.user);
+  const user: TUser | null = useAppSelector((state) => state.auth?.user as TUser | null);
   console.log(user);
   if (!user) {
     return <div>No user information available</div>;

@@ -7,11 +7,27 @@ import PageTitle from "../shared/PageTitleHelmet/PageTitle";
 
 
 
+//  export const formatDate = (dateString: any) => {
+//     const options = { year: "numeric", month: "long", day: "numeric" }; // You can customize the format
+//     return new Date(dateString).toLocaleDateString(undefined, options);
+//   };
 
- export const formatDate = (dateString: any) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }; // You can customize the format
-    return new Date(dateString).toLocaleDateString(undefined, options);
+
+
+// Define a more specific type for the dateString parameter
+export const formatDate = (dateString: string): string => {
+  // Create a date object and handle invalid dates
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    return "Invalid date"; // Handle invalid date format
+  }
+  const options: Intl.DateTimeFormatOptions = { 
+    year: "numeric", 
+    month: "long", 
+    day: "numeric" 
   };
+  return date.toLocaleDateString(undefined, options);
+};
 
 const AllReviewPage = () => {
 

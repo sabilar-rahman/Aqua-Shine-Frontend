@@ -2,6 +2,7 @@ import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
+import { TUser } from "@/types";
 import { useEffect, useState } from "react";
 
 interface TBooking {
@@ -21,7 +22,7 @@ interface TBooking {
 }
 
 const PastBookings = () => {
-  const userEmail = useAppSelector((state) => state.auth.user?.email); // Retrieve email from auth state
+  const userEmail = useAppSelector((state) => (state.auth.user as TUser)?.email); // Retrieve email from auth state
 
   // Type the API query response properly
   const { data, isLoading } = useGetAllbookingsByEmailQuery(

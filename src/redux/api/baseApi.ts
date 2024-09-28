@@ -11,7 +11,7 @@ import { RootState } from "../store";
 import { logout, setUser } from "./auth/authSlice";
 
 // const baseQuery = fetchBaseQuery({
-//   baseUrl: "http://localhost:5000/api",
+//   baseUrl: "https://turbo-shine-server-backend.vercel.app/api",
 //   credentials: "include",
 //   prepareHeaders: (headers, { getState }) => {
 //     const token = (getState() as RootState).auth.token;
@@ -35,7 +35,7 @@ import { logout, setUser } from "./auth/authSlice";
 //     //* Send Refresh
 //     console.log("Sending refresh token");
 
-//     const res = await fetch("http://localhost:5000/api/auth/refresh-token", {
+//     const res = await fetch("https://turbo-shine-server-backend.vercel.app/api/auth/refresh-token", {
 //       method: "POST",
 //       credentials: "include",
 //     });
@@ -64,7 +64,7 @@ import { logout, setUser } from "./auth/authSlice";
 // export const baseApi = createApi({
 //   reducerPath: "baseApi",
 //   baseQuery: baseQueryWithRefreshToken,
-//   // baseUrl: "http://localhost:5000/api",
+//   // baseUrl: "https://turbo-shine-server-backend.vercel.app/api",
 //   // credentials: "include",
 
 //   tagTypes: ["Users", "reviews", "Slots", "Services"],
@@ -73,7 +73,7 @@ import { logout, setUser } from "./auth/authSlice";
 
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000/api",
+  baseUrl: "https://turbo-shine-server-backend.vercel.app/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -98,7 +98,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     console.log("Sending refresh token");
 
     const res = await fetch(
-      "http://localhost:5000/api/auth/refresh-token",
+      "https://turbo-shine-server-backend.vercel.app/api/auth/refresh-token",
       {
         method: "POST",
         credentials: "include",
