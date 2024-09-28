@@ -1,9 +1,9 @@
-import { useCurrentUser } from "@/redux/api/auth/authSlice";
+
 import { useCreateBookingMutation } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
-import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+
 
 const Booking = () => {
   const location = useLocation();

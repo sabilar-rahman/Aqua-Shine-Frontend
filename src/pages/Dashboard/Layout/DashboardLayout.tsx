@@ -1,6 +1,6 @@
 import PageTitle from "@/pages/shared/PageTitleHelmet/PageTitle";
 import { useCurrentUser } from "@/redux/api/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import {  useAppSelector } from "@/redux/hook";
 import adminRoutes from "@/routes/adminRoutes";
 import { userRoutes } from "@/routes/userRoutes";
 import { FaArrowLeft } from "react-icons/fa";
@@ -8,8 +8,8 @@ import {
   sidebarItemGenerator,
   TSidebarItem,
 } from "@/utils/sidebarItemGenerator";
-import React, { useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import  { useState } from "react";
+import { Link, Outlet} from "react-router-dom";
 
 const DashboardLayout = () => {
   // const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
-import { useCurrentUser } from "@/redux/api/auth/authSlice"; // Ensure this is correctly exported from your authSlice
+
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
 import { useEffect, useState } from "react";

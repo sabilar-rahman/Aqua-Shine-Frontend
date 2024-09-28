@@ -1,10 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import Swal from "sweetalert2";
+
 
 import { TService, TSlot } from "../../../types";
 import { useCreateASlotMutation } from "@/redux/api/adminApi/slotApi";
 import { useGetAllServicesQuery } from "@/redux/api/adminApi/service.Api";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 const CreateSlot = () => {

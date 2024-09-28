@@ -4,7 +4,7 @@ import { TUser } from "../../../types";
 //   useGetAllUsersQuery,
 //   useUpdateUserRoleMutation,
 // } from "../../../redux/features/admin/user.api";
-import Swal from "sweetalert2";
+
 import { useGetAllUsersQuery, useUpdateUserRoleMutation } from "@/redux/api/adminApi/userApi";
 import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 import { toast } from "sonner";

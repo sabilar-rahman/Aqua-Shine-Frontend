@@ -4,8 +4,7 @@ import FeaturedService from "./FeaturedService";
 import PageTitle from "../shared/PageTitleHelmet/PageTitle";
 
 import ReviewHomepage from "./review/ReviewHomePage";
-import ReviewForm from "./review/ReviewForm";
-import ReviewSection from "./ReviewSection";
+
 
 const HomePage = () => {
   return (

@@ -8,7 +8,7 @@ const initialState = {
   role: "",
   password: "",
   address: "",
-  image: "",
+  img: "",
 };
 const registerSlice = createSlice({
   name: "register",
@@ -21,7 +21,7 @@ const registerSlice = createSlice({
       state.role = action.payload.role;
       state.password = action.payload.password;
       state.address = action.payload.address;
-      state.image = action.payload.image;
+      state.img = action.payload.img;
     },
   },
 });

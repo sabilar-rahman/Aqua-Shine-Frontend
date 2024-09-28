@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Swal from "sweetalert2";
+
 // import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { TUser } from "../../../types";
 // import { useUpdateUserInfoMutation } from "../../../redux/features/admin/user.api";

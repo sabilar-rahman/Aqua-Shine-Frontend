@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"; // Assuming y
 import { useDispatch } from "react-redux";
 import { TUser } from "@/types";
 import { verifyToken } from "@/utils/verifyToken";
-import { Toaster, toast } from 'sonner'
+import {  toast } from 'sonner'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const Login = () => {
         });
         reset();
 
-        console.log(user)
+        // console.log(user)
         
       }
     } catch (error) {

@@ -2,9 +2,9 @@
 import { logout, useCurrentUser } from "@/redux/api/auth/authSlice";
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Swal from "sweetalert2";
+
 import Countdown from "react-countdown";
 import { toast } from "sonner";
 
@@ -27,7 +27,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   
   // Using the User type explicitly
-  const user: User | null = useAppSelector(useCurrentUser);
+  const user: User | null = useAppSelector(useCurrentUser) ;
   const role = user?.role;
   const userEmail = user?.email; // userEmail now exists on 'user'
 

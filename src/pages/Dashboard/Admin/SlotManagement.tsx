@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
+
 
 import { TSlot } from "../../../types";
 import {
