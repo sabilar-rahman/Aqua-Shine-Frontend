@@ -30,6 +30,7 @@ const Register = () => {
       dispatch(setRegistrationData(data));
       const user = await signUp(data).unwrap();
       console.log("user data:", user);
+
       toast.success('Registration Successful');
       navigate("/login", { replace: true });
 
@@ -132,12 +133,12 @@ const Register = () => {
         </div>
         <div>
           
-          <label htmlFor="image" className="block text-sm font-medium text-gray-600">
+          <label htmlFor="img" className="block text-sm font-medium text-gray-600">
             Image URL
           </label>
           <input
             id="image"
-            {...register('image')}
+            {...register('img')}
             placeholder="Enter your Image URL"
             className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />

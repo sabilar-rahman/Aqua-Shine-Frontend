@@ -27,7 +27,7 @@ const Login = () => {
       const user = verifyToken(token);
       dispatch(setUser({ user, token }));
       if (user) {
-        toast.success('Login Successfull')
+        toast.success('Login Successfully')
         navigate(location.state?.from?.pathname || "/", {
           replace: true,
         });

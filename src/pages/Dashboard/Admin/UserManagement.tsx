@@ -6,6 +6,8 @@ import { TUser } from "../../../types";
 // } from "../../../redux/features/admin/user.api";
 import Swal from "sweetalert2";
 import { useGetAllUsersQuery, useUpdateUserRoleMutation } from "@/redux/api/adminApi/userApi";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
+import { toast } from "sonner";
 
 const UserManagement = () => {
   const { data: usersResponse, isLoading: usersLoading } =
@@ -16,12 +18,8 @@ const UserManagement = () => {
 
   if (usersLoading) {
     return (
-      <div className="flex items-center justify-center lg:py-32">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
+      <LoaderSpinner/>
+      
     );
   }
 
@@ -32,27 +30,34 @@ const UserManagement = () => {
     try {
       await updateUserRole({ userId, role: newRole }).unwrap();
 
+      toast.info("Role updated to " + newRole.toUpperCase() + " successfully.");
+
       // Show success alert
-      Swal.fire({
-        title: "Success!",
-        text: "Role updated successfully.",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      // Swal.fire({
+      //   title: "Success!",
+      //   text: "Role updated successfully.",
+      //   icon: "success",
+      //   confirmButtonText: "OK",
+      // });
 
       // Reset selection
       setSelectedUserId(null);
       setSelectedRole("");
     } catch (error) {
-      console.error("Failed to update role:", error);
 
-      // Show error alert
-      Swal.fire({
-        title: "Error!",
-        text: "Failed to update role.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      toast.error("Failed to update role.");
+
+
+
+      // console.error("Failed to update role:", error);
+
+      // // Show error alert
+      // Swal.fire({
+      //   title: "Error!",
+      //   text: "Failed to update role.",
+      //   icon: "error",
+      //   confirmButtonText: "OK",
+      // });
     }
   };
 
@@ -67,7 +72,7 @@ const UserManagement = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Current Role</th>
-            <th>Edit Role</th>
+            <th>Update Role: Admin/User</th>
           </tr>
         </thead>
         <tbody className="text-[17px]">
@@ -76,7 +81,9 @@ const UserManagement = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
-              <td>
+
+
+              {/* <td>
                 {selectedUserId === user._id ? (
                   <div className="flex items-center gap-2">
                     <select
@@ -107,7 +114,37 @@ const UserManagement = () => {
                     Edit Role
                   </button>
                 )}
-              </td>
+              </td> */}
+
+<td>
+  <div className="flex items-center gap-2">
+    <select
+      value={selectedUserId === user._id ? selectedRole : user.role}
+      onChange={(e) => {
+        setSelectedUserId(user._id as string); // Keep track of the user
+        setSelectedRole(e.target.value); // Set the selected role
+      }}
+      className="select select-bordered"
+    >
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <button
+  className={`btn text-white ${
+    selectedUserId === user._id
+      ? "bg-gradient-to-r from-blue-500  to-purple-600  hover:via-blue-600 hover:to-purple-700"
+      : "bg-gray-400 cursor-not-allowed"
+  } px-4 py-2 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105`}
+  onClick={() => handleRoleChange(user._id as string, selectedRole)}
+  disabled={selectedUserId !== user._id}
+>
+  Save
+</button>
+  </div>
+</td>
+
+
             </tr>
           ))}
         </tbody>

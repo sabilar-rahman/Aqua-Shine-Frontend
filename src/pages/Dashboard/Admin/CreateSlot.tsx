@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { TService, TSlot } from "../../../types";
 import { useCreateASlotMutation } from "@/redux/api/adminApi/slotApi";
 import { useGetAllServicesQuery } from "@/redux/api/adminApi/service.Api";
+import { toast, Toaster } from "sonner";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 const CreateSlot = () => {
   const { data: servicesData, isLoading: servicesLoading } =
@@ -21,15 +23,20 @@ const CreateSlot = () => {
     console.log(formData);
     try {
       await createSlot(formData).unwrap();
-      Swal.fire("Success", "Slot created successfully", "success");
+      toast.info("Slot created successfully");
+
+      // Swal.fire("Success", "Slot created successfully", "success");
+
       reset();
     } catch (error) {
-      Swal.fire("Error", "Failed to create slot", "error");
+      toast.error("Failed to create Slot")
+
+      // Swal.fire("Error", "Failed to create slot", "error");
     }
   };
 
   if (servicesLoading) {
-    return <div>Loading services...</div>;
+    return <LoaderSpinner/>
   }
 
   // Directly use the data as TService[]
@@ -37,6 +44,7 @@ const CreateSlot = () => {
   const services: TService[] = servicesData?.data || [];
   return (
     <div className="container mx-auto p-4 max-w-xl">
+
       <h2 className="text-xl md:text-3xl text-primary font-bold mb-4 text-center">
         Create Slot
       </h2>
@@ -103,7 +111,7 @@ const CreateSlot = () => {
         <div className="mt-4">
           <button
             type="submit"
-            className="btn bg-primary text-white hover:bg-hover"
+            className="btn bg-red-700 hover:bg-red-500 text-white hover:text-white"
           >
             Create Slot
           </button>

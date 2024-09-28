@@ -66,6 +66,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success("Logout successfully");
   };
 
   const navItem = (

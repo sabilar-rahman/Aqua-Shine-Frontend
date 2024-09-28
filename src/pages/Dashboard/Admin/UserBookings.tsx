@@ -14,7 +14,7 @@ const UserBookings = () => {
   }
 
   if (!bookings || bookings.length === 0) {
-    return <p>No bookings available at the moment.</p>;
+    return <p className="text-center">No bookings available at the moment.</p>;
   }
 
   return (

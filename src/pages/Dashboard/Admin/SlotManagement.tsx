@@ -2,7 +2,12 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 import { TSlot } from "../../../types";
-import { useGetSlotsQuery, useUpdateSlotStatusMutation } from "@/redux/api/adminApi/slotApi";
+import {
+  useGetSlotsQuery,
+  useUpdateSlotStatusMutation,
+} from "@/redux/api/adminApi/slotApi";
+import { toast } from "sonner";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 const SlotManagement = () => {
   const { data: slotsResponse, isLoading: slotsLoading } = useGetSlotsQuery();
@@ -22,12 +27,15 @@ const SlotManagement = () => {
   // Save the updated status
   const handleSaveStatus = async (slot: TSlot) => {
     if (slot.isBooked === "booked") {
-      Swal.fire({
-        title: "Error",
-        text: "Cannot change the status of a booked slot.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      toast.error("Cannot change the status of a booked slot.");
+
+      // Swal.fire({
+      //   title: "Error",
+      //   text: "Cannot change the status of a booked slot.",
+      //   icon: "error",
+      //   confirmButtonText: "OK",
+      // });
+
       return;
     }
 
@@ -39,32 +47,29 @@ const SlotManagement = () => {
         status: newStatus,
       }).unwrap();
 
-      Swal.fire({
-        title: "Success",
-        text: `Slot status updated to ${newStatus.toUpperCase()}!`,
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      toast.success(`Slot status updated to ${newStatus.toUpperCase()}!`);
+
+      // Swal.fire({
+      //   title: "Success",
+      //   text: `Slot status updated to ${newStatus.toUpperCase()}!`,
+      //   icon: "success",
+      //   confirmButtonText: "OK",
+      // });
     } catch (error) {
-      console.error("Failed to update slot status:", error);
-      Swal.fire({
-        title: "Error",
-        text: "Failed to update slot status.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      toast.error("Failed to update slot status.");
+
+      // console.error("Failed to update slot status:", error);
+      // Swal.fire({
+      //   title: "Error",
+      //   text: "Failed to update slot status.",
+      //   icon: "error",
+      //   confirmButtonText: "OK",
+      // });
     }
   };
 
   if (slotsLoading) {
-    return (
-      <div className="flex items-center justify-center lg:py-32">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+    return <LoaderSpinner />;
   }
   // @ts-expect-error: Ignoring type error due to mismatch in expected types from external library
   const slots = slotsResponse?.data;
@@ -129,11 +134,11 @@ const SlotManagement = () => {
                 <td>
                   {/* Save Status Button */}
                   <button
-                    className="btn bg-primary text-white hover:bg-hover"
+                    className="btn bg-red-700 hover:bg-red-500 text-white hover:text-white"
                     onClick={() => handleSaveStatus(slot)}
                     disabled={slot.isBooked === "booked"} // Prevent updates for booked slots
                   >
-                    Save Status
+                    Submit
                   </button>
                 </td>
               </tr>

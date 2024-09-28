@@ -1,11 +1,9 @@
 import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
+import { useCurrentUser } from "@/redux/api/auth/authSlice"; // Ensure this is correctly exported from your authSlice
 import { useGetAllbookingsByEmailQuery } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
 import { useEffect, useState } from "react";
-// import { useAppSelector } from "../../../redux/hooks";
-// import { useGetAllbookingsByEmailQuery } from "../../../redux/features/user/bookingSlots.api";
 
-// Assuming TBooking has a structure similar to this:
 interface TBooking {
   _id: string;
   service: {
@@ -23,7 +21,7 @@ interface TBooking {
 }
 
 const PastBookings = () => {
-  const userEmail = useAppSelector((state) => state.auth.user?.email);
+  const userEmail = useAppSelector((state) => state.auth.user?.email); // Retrieve email from auth state
 
   // Type the API query response properly
   const { data, isLoading } = useGetAllbookingsByEmailQuery(
@@ -46,11 +44,7 @@ const PastBookings = () => {
   }, [data]);
 
   if (isLoading) {
-    return (
-
-      <LoaderSpinner/>
-    
-    );
+    return <LoaderSpinner />;
   }
 
   if (!pastBookings || pastBookings.length === 0) {
