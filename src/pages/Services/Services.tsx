@@ -4,7 +4,11 @@ import { useAppSelector } from "@/redux/hook";
 import { TService } from "@/types";
 import { useGetAllServicesQuery } from "@/redux/api/adminApi/service.Api";
 import LoaderSpinner from "../shared/loadingPage/LoadingSpinner";
+import PageTitle from "../shared/PageTitleHelmet/PageTitle";
 
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+/******  68764071-4932-4fbe-8aa5-7b6961276048  *******/
 const Service = () => {
   const { data, isLoading } = useGetAllServicesQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,6 +68,7 @@ const Service = () => {
 
   return (
     <div className="lg:py-16 bg-gray-100 min-h-screen">
+       <PageTitle title="Services | Turbo Shine" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* <h2 className="text-2xl lg:text-4xl text-center font-lora font-extrabold text-primary mb-10">
           Top Picks: Our Featured Services

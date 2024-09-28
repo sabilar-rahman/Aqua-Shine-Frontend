@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#02c39a] to-[#028978] text-white py-12 px-8">
+    <footer className="bg-gradient-to-r from-[#1f746a] to-[#2A9D8F] text-white py-12 px-8">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-center md:text-left mb-8 md:mb-0">
@@ -29,14 +29,14 @@ const Footer = () => {
           <nav className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-center md:text-left">
             {/* <a href="/about" className="hover:underline"></a> */}
 
-            <NavLink to={`/aboutUs`} className="hover:underline">
+            <NavLink to={`/aboutus`} className="hover:underline">
               About Us
             </NavLink>
-            <NavLink to={`/aboutUs`} className="hover:underline">
+            <NavLink to={`/aboutus`} className="hover:underline">
               Contact
             </NavLink>
-            <NavLink to={`/products`} className="hover:underline">
-              Products
+            <NavLink to={`/services`} className="hover:underline">
+              Services
             </NavLink>
 
             
@@ -47,7 +47,7 @@ const Footer = () => {
 
           <div className="mt-8 md:mt-0">
             <div className="flex justify-center space-x-6">
-              <a href="https://twitter.com" aria-label="Twitter">
+              <a href="https://x.com/SabilarRahman" aria-label="Twitter">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -69,7 +69,7 @@ const Footer = () => {
                   <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
                 </svg>
               </a>
-              <a href="https://facebook.com" aria-label="Facebook">
+              <a href="https://www.facebook.com/sabilar.rahman.2" aria-label="Facebook">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="text-center mt-12">
-          <p>© {new Date().getFullYear()} Max Fit - All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Turbo Shine - All rights reserved.</p>
         </div>
       </div>
     </footer>

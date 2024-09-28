@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useGetAllServicesQuery } from "@/redux/api/adminApi/service.Api";
 import { TService } from "@/types";
 import LoaderSpinner from "../shared/loadingPage/LoadingSpinner";
+import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+
+
 
 const Compare = () => {
   const { data: response, error, isLoading } = useGetAllServicesQuery();
@@ -26,7 +29,6 @@ const Compare = () => {
 
   // Render the selected services in a comparison table
   const renderServiceComparison = () => {
-
     if (selectedServices.length < 1) {
       return (
         <p className="text-[#3f9e99] text-center">Please select at least two</p>
@@ -34,91 +36,58 @@ const Compare = () => {
     }
 
     return (
-
-      // <table className="container mx-auto bg-white border border-gray-300">
-      //   <thead>
-      //     <tr>
-      //       <th className="py-2 px-4 border">Service Name</th>
-      //       {selectedServices.map((service) => (
-      //         <th key={service._id} className="py-2 px-4 border">
-      //           {service.name}
-      //         </th>
-      //       ))}
-      //     </tr>
-      //   </thead>
-      //   <tbody>
-      //     <tr>
-      //       <td className="py-2 px-4 border font-semibold">Price</td>
-      //       {selectedServices.map((service) => (
-      //         <td key={service._id} className="py-2 px-4 border">
-      //           ${service.price}
-      //         </td>
-      //       ))}
-      //     </tr>
-      //     <tr>
-      //       <td className="py-2 px-4 border font-semibold">Duration</td>
-      //       {selectedServices.map((service) => (
-      //         <td key={service._id} className="py-2 px-4 border">
-      //           {service.duration}
-      //         </td>
-      //       ))}
-      //     </tr>
-      //     <tr>
-      //       <td className="py-2 px-4 border font-semibold">Description</td>
-      //       {selectedServices.map((service) => (
-      //         <td key={service._id} className="py-2 px-4 border">
-      //           {service.description}
-      //         </td>
-      //       ))}
-      //     </tr>
-      //   </tbody>
-      // </table>
-
-
       <div className="container mx-auto overflow-x-auto">
-  <table className="min-w-full bg-white border border-gray-300">
-    <thead>
-      <tr>
-        <th className="py-2 px-4 border text-[#1f746a] ">Service Name</th>
-        {selectedServices.map((service) => (
-          <th key={service._id} className="py-2 px-4 border text-[#1f746a] ">
-            {service.name}
-          </th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td className="py-2 px-4 border font-semibold text-[#1f746a]">Price</td>
-        {selectedServices.map((service) => (
-          <td key={service._id} className="py-2 px-4 border">
-            {service.price} $
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <td className="py-2 px-4 border font-semibold text-[#1f746a]">Duration</td>
-        {selectedServices.map((service) => (
-          <td key={service._id} className="py-2 px-4 border">
-            {service.duration} min
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <td className="py-2 px-4 border font-semibold text-[#1f746a]">Description</td>
-        {selectedServices.map((service) => (
-          <td key={service._id} className="py-2 px-4 border">
-            {service.description}
-          </td>
-        ))}
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
-
+       
+      
+        <table className="min-w-full bg-white border border-gray-300">
+       
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border text-[#1f746a] ">Service Name</th>
+              {selectedServices.map((service) => (
+                <th
+                  key={service._id}
+                  className="py-2 px-4 border text-[#1f746a] "
+                >
+                  {service.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="py-2 px-4 border font-semibold text-[#1f746a]">
+                Price
+              </td>
+              {selectedServices.map((service) => (
+                <td key={service._id} className="py-2 px-4 border">
+                  {service.price} $
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border font-semibold text-[#1f746a]">
+                Duration
+              </td>
+              {selectedServices.map((service) => (
+                <td key={service._id} className="py-2 px-4 border">
+                  {service.duration} min
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border font-semibold text-[#1f746a]">
+                Description
+              </td>
+              {selectedServices.map((service) => (
+                <td key={service._id} className="py-2 px-4 border">
+                  {service.description}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   };
 
@@ -132,6 +101,7 @@ const Compare = () => {
 
   return (
     <div className="container mx-auto  ">
+       <PageTitle title="Compare | Turbo Shine" />
       <div className="mb-6">
         <h3 className=" font-semibold mb-8 text-2xl ">
           Select Services to Compare
@@ -157,7 +127,9 @@ const Compare = () => {
                 {service.name}
               </h3>
               <p className="text-lg">Duration: {service.duration} min</p>
-              <p className="text-lg">Price:{service.price}  <span className="text-xl">$</span> </p>
+              <p className="text-lg">
+                Price:{service.price} <span className="text-xl">$</span>{" "}
+              </p>
             </div>
           ))}
         </div>

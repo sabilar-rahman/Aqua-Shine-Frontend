@@ -3,6 +3,7 @@ import { useCreateBookingMutation } from "@/redux/api/UserApi/bookingslotApi";
 import { useAppSelector } from "@/redux/hook";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
+import PageTitle from "../shared/PageTitleHelmet/PageTitle";
 
 const Booking = () => {
   const location = useLocation();
@@ -79,6 +80,9 @@ const Booking = () => {
 
   return (
     <div className=" container mx-auto">
+
+
+     
       {/* <h1 className="text-xl md:text-4xl text-primary font-bold text-center">
         See your booking here
       </h1> */}
@@ -307,7 +311,7 @@ const Booking = () => {
                   htmlFor="registrationPlate"
                   className="block text-sm font-medium text-gray-700"
                 >
-                 Car Registration Plate Number
+                  Car Registration Plate Number
                 </label>
                 <input
                   id="registrationPlate"
@@ -359,6 +363,7 @@ const Booking = () => {
           </h1>
         </>
       )}
+       
     </div>
   );
 };

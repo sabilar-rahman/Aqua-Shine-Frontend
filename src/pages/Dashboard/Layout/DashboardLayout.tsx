@@ -41,6 +41,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="drawer lg:drawer-open font-lora">
+       <PageTitle title="Dashboard | Turbo Shine" />
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content bg-base-200 p-5">
         {/* Page content here */}

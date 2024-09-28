@@ -15,7 +15,7 @@ const RootMain = () => {
       <Outlet />
       <ScrollToTop/>
 
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

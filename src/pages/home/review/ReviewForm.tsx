@@ -103,7 +103,7 @@ const ReviewForm = () => {
     <div className="flex items-center justify-center max-w-screen py-2">
   <div className="w-full max-w-lg bg-white dark:bg-gray-800 ">
     <h2 className="text-3xl font-bold text-center text-primary mb-2">
-      Leave a Review
+      Leave us a review
     </h2>
 
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
-import React from "react";
+
 import LoaderSpinner from "../shared/loadingPage/LoadingSpinner";
 import { TReview } from "@/types";
-import { stringify } from "querystring";
-import ProtectedRoute from "../Dashboard/Layout/ProtectedRoute";
+import PageTitle from "../shared/PageTitleHelmet/PageTitle";
+
 
 
 
@@ -28,6 +28,8 @@ const AllReviewPage = () => {
 
     
     <div className="container mx-auto">
+
+<PageTitle title="Review | Turbo Shine" />
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review) => (

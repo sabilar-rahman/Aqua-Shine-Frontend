@@ -15,6 +15,7 @@ import { userRoutes } from "./userRoutes";
 import HomePage from "@/pages/home/HomePage";
 import ServiceDetail from "@/pages/Services/ServiceDetails";
 import AllReviewPage from "@/pages/AllReview/AllReviewPage";
+import AboutUs from "@/pages/home/AboutUs";
 
 
 
@@ -49,7 +50,11 @@ const router = createBrowserRouter([
       {
         path: "/reviews",
         element: <AllReviewPage/>,
-      }
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs/>,
+      },
     ],
   },
   {
