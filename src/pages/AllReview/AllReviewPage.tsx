@@ -6,11 +6,15 @@ import { TReview } from "@/types";
 import { stringify } from "querystring";
 import ProtectedRoute from "../Dashboard/Layout/ProtectedRoute";
 
-const AllReviewPage = () => {
-  const formatDate = (dateString: any) => {
+
+
+ export const formatDate = (dateString: any) => {
     const options = { year: "numeric", month: "long", day: "numeric" }; // You can customize the format
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+const AllReviewPage = () => {
+
   const { data, isLoading } = useGetAllReviewsQuery(undefined);
 
   // Ensure data is defined and has reviews
@@ -21,6 +25,8 @@ const AllReviewPage = () => {
   }
 
   return (
+
+    
     <div className="container mx-auto">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -55,13 +61,13 @@ const AllReviewPage = () => {
                   alt={`${review.user.name}'s profile`}
                 />
                 <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-                  <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+                  <cite className="pe-3 font-medium text-xs lg:text-sm text-gray-900 dark:text-white">
                     {review.user.name}
                   </cite>
-                  <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                  <cite className="ps-3 text-xs lg:text-sm text-gray-500 dark:text-gray-400">
                     {review.user.email}
                   </cite>
-                  <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                  <cite className="ps-3 text-xs lg:text-sm text-gray-500 dark:text-gray-400">
                     {formatDate(review.createdAt)}
                   </cite>
                 </div>

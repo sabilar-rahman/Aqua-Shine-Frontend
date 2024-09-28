@@ -1,19 +1,24 @@
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
 import { TReview } from "@/types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 import LoaderSpinner from "../../shared/loadingPage/LoadingSpinner";
-// import { useGetAllReviewsQuery } from "../../redux/features/user/review.api";
-// import { TReview } from "../../types";
-// import ReviewForm from "./ReviewForm";
+import { useAppSelector } from "@/redux/hook";
+import { useCurrentUser } from "@/redux/api/auth/authSlice";
+import { formatDate } from "@/pages/AllReview/AllReviewPage";
 
 const ReviewHomePage = () => {
-
-
-
   const { data: response, isLoading } = useGetAllReviewsQuery(undefined);
+  const isLoggedIn = useAppSelector(useCurrentUser); // Replace with your actual auth state selector
+  const navigate = useNavigate();
 
-
+  useEffect(()=>{
+    AOS.init({duration:1200})
+  })
 
   const reviews: TReview[] = response?.data || [];
   console.log("review data", reviews);
@@ -41,9 +46,14 @@ const ReviewHomePage = () => {
   const fullStars = Math.floor(parseFloat(overallRating));
   const hasHalfStar = parseFloat(overallRating) - fullStars >= 0.5;
 
+  // Function to handle login redirect
+  const handleLoginRedirect = () => {
+    navigate("/login"); // Redirect to the login page
+  };
+
   return (
     <div className="container mx-auto">
-      {/* overall site reating  */}
+      {/* Overall Site Rating */}
       <div className="text-center mb-6 py-6 flex justify-center items-center md:gap-4">
         <h3 className="text-xl md:text-2xl font-semibold text-hover">
           Overall Site Rating:
@@ -91,72 +101,88 @@ const ReviewHomePage = () => {
         </div>
       </div>
 
-
-      {/* make a black overlay to login user  */}
-
-      <ReviewForm />
-
-
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 text-primary mt-8">
-        User Reviews
-      </h2>
-
-    
-
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {lastTwoReviews.map((review, index: number) => (
-          <div
-            key={index}
-            className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 flex flex-col md:flex-row items-start space-x-4 hover:shadow-xl transition-shadow duration-300 ease-in-out"
-          >
-            <div className="flex-shrink-0">
-              <div className="avatar">
-                <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden">
-                  <img
-                    src={review.user?.img || ""}
-                    alt={`${review.user?.name || "User"}'s avatar`}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 md:mt-0 md:ml-4 flex-1">
-              <div className="flex items-center justify-between">
-                <div className="text-xl font-bold text-primary">
-                  {review.user?.name || "Anonymous"}
-                </div>
-                <div className="text-sm text-gray-500">
-                  {new Date(review.createdAt).toLocaleDateString()}
-                </div>
-              </div>
-              <div className="mt-2 flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-5 w-5 ${
-                      i < review.rating ? "text-yellow-500" : "text-gray-300"
-                    }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957h4.146c.969 0 1.371 1.24.588 1.81l-3.353 2.435 1.287 3.956c.299.921-.755 1.688-1.54 1.115L10 13.348l-3.355 2.353c-.785.573-1.839-.194-1.54-1.115l1.287-3.956-3.353-2.435c-.783-.57-.381-1.81.588-1.81h4.146L9.05 2.927z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="mt-4 text-gray-700 leading-relaxed">
-                {review.review}
-              </p>
-            </div>
+      {/* Black overlay for non-logged-in users */}
+      <div className="relative">
+        {!isLoggedIn && (
+          <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white z-10 rounded-lg">
+            <p className="text-xl font-semibold mb-4">
+              Please log in to post a comment.
+            </p>
+            <button
+              onClick={handleLoginRedirect}
+              className="bg-primary px-6 py-3 text-lg font-bold rounded-md hover:bg-hover transition duration-300"
+            >
+              Go to Login
+            </button>
           </div>
-        ))}
+        )}
+        {/* Review Form */}
+        <ReviewForm />
       </div>
-      <div className="text-center my-5">
-        <Link to="/reviews">
-          <button className="text-xl font-bold text-white bg-primary px-3 lg:px-9 py-2 lg:py-4 hover:bg-hover rounded-md">
-            See All Reviews
-          </button>
-        </Link>
+
+      {/* User Reviews Section */}
+      <div className='' data-aos="fade-right">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {lastTwoReviews.map((review, index: number) => (
+              <figure
+                key={index}
+                className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md"
+              >
+                <div className="flex items-center mb-4 text-yellow-300">
+                  {/* Render star rating */}
+                  {[...Array(review.rating)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-5 h-5 sm:w-6 sm:h-6 me-1"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 22 20"
+                    >
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                  ))}
+                </div>
+                {/* Review text */}
+                <blockquote>
+                  <p className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
+                    "{review.review}"
+                  </p>
+                </blockquote>
+                {/* Reviewer details */}
+                <figcaption className="flex items-center mt-6 space-x-3 rtl:space-x-reverse">
+                  <img
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full"
+                    src={review.user?.img || ""}
+                    alt={`${review.user?.name || "User"}'s profile`}
+                  />
+                  <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
+                    <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+                      {review.user?.name || "Anonymous"}
+                    </cite>
+                    {/* <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+              {review.user?.email}
+            </cite> */}
+                    <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                      {/* {new Date(review.createdAt).toLocaleDateString()} */}
+                      {formatDate(review.createdAt)}
+                    </cite>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        {/* Link to all reviews */}
+        <div className="text-center my-5">
+          <Link to="/reviews">
+            <button className="btn rounded-lg text-lg font-semibold  bg-[#2A9D8F] text-gray-50 hover:bg-[#0f685f] hover:font-bold ">
+              See All Review
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
