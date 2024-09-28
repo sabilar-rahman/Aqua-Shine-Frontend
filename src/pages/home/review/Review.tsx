@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 import { TUser } from "@/types";
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
 
 export type TReview = {
@@ -21,12 +22,7 @@ const ReviewSection = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
+      <LoaderSpinner/>
     );
   }
 
@@ -112,7 +108,7 @@ const ReviewSection = () => {
               <div className="avatar">
                 <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden">
                   <img
-                    src={review.user?.image || ""}
+                    src={review.user?.img || ""}
                     alt={`${review.user?.name || "User"}'s avatar`}
                     className="object-cover w-full h-full"
                   />

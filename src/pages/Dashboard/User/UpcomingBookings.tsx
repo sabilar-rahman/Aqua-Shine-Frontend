@@ -69,10 +69,10 @@ const UpcomingBookings = () => {
 
   const renderer = ({ days, hours, minutes, seconds }: any) => {
     return (
-      <div className="flex space-x-2  text-lg">
-        <span>{days}d</span>
-        <span>{hours}h</span>
-        <span>{minutes}m</span>
+      <div className="flex   text-lg">
+        <span>{days}d-</span>
+        <span>{hours}h-</span>
+        <span>{minutes}m-</span>
         <span>{seconds}s</span>
       </div>
     );

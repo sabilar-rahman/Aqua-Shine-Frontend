@@ -60,7 +60,7 @@ const Navbar = () => {
   // Countdown renderer with proper types
   const countdownRenderer = ({ days, hours, minutes, seconds }: any) => (
     <span>
-      {days}d {hours}h {minutes}m {seconds}s
+      {days}d-{hours}h-{minutes}m-{seconds}s
     </span>
   );
 
@@ -176,7 +176,7 @@ const Navbar = () => {
       {/* Countdown Timer for Next Booking in Navbar */}
       {nextBooking && (
         <div className="navbar-center hidden lg:flex text-lg font-semibold text-[#2A9D8F]">
-          Next Booking in: {" "}
+          Upcoming Booking :  {" "}
           <Countdown
             date={new Date(`${nextBooking.slot.date}T${nextBooking.slot.startTime}`).getTime()}
             renderer={countdownRenderer}
