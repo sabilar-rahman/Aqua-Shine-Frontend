@@ -1,29 +1,25 @@
-import { Link } from "react-router-dom";
-
-// import { TReview } from "../../types";
-import ReviewForm from "./ReviewForm";
-import { TUser } from "@/types";
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
-import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
+import { TReview } from "@/types";
+import { Link } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
+import LoaderSpinner from "../../shared/loadingPage/LoadingSpinner";
+// import { useGetAllReviewsQuery } from "../../redux/features/user/review.api";
+// import { TReview } from "../../types";
+// import ReviewForm from "./ReviewForm";
+
+const ReviewHomePage = () => {
 
 
-export type TReview = {
-  review: string;
-  rating: number;
-  createdAt: string;
-  user: TUser;
-};
 
-const ReviewSection = () => {
   const { data: response, isLoading } = useGetAllReviewsQuery(undefined);
+
+
 
   const reviews: TReview[] = response?.data || [];
   console.log("review data", reviews);
 
   if (isLoading) {
-    return (
-      <LoaderSpinner/>
-    );
+    return <LoaderSpinner />;
   }
 
   if (!reviews || reviews.length === 0) {
@@ -46,16 +42,13 @@ const ReviewSection = () => {
   const hasHalfStar = parseFloat(overallRating) - fullStars >= 0.5;
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <ReviewForm />
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 text-primary mt-8">
-        User Reviews
-      </h2>
-
-      <div className="text-center mb-6 flex justify-center items-center md:gap-4">
+    <div className="container mx-auto">
+      {/* overall site reating  */}
+      <div className="text-center mb-6 py-6 flex justify-center items-center md:gap-4">
         <h3 className="text-xl md:text-2xl font-semibold text-hover">
           Overall Site Rating:
         </h3>
+
         <div className="flex justify-center items-center mt-2">
           {[...Array(5)].map((_, i) => (
             <svg
@@ -97,6 +90,18 @@ const ReviewSection = () => {
           </span>
         </div>
       </div>
+
+
+      {/* make a black overlay to login user  */}
+
+      <ReviewForm />
+
+
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 text-primary mt-8">
+        User Reviews
+      </h2>
+
+    
 
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
         {lastTwoReviews.map((review, index: number) => (
@@ -147,7 +152,7 @@ const ReviewSection = () => {
         ))}
       </div>
       <div className="text-center my-5">
-        <Link to="/review">
+        <Link to="/reviews">
           <button className="text-xl font-bold text-white bg-primary px-3 lg:px-9 py-2 lg:py-4 hover:bg-hover rounded-md">
             See All Reviews
           </button>
@@ -157,4 +162,4 @@ const ReviewSection = () => {
   );
 };
 
-export default ReviewSection;
+export default ReviewHomePage;

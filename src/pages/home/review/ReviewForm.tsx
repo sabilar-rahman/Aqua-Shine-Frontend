@@ -1,10 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 
-
 import { toast } from "sonner";
 import { useCreateReviewMutation } from "@/redux/api/UserApi/reviewApi";
-import { TReview } from "./Review";
+import { TReview } from "@/types";
+// import { TReview } from "./ReviewPanel";
 
 const ReviewForm = () => {
   const { handleSubmit, reset, register } = useForm<TReview>();

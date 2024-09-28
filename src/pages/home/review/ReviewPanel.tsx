@@ -1,43 +1,28 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-
-import { useEffect, useState } from "react";
-import { useAppSelector } from "@/redux/hook";
+// import { TReview } from "../../types";
+import ReviewForm from "./ReviewForm";
+import { TUser } from "@/types";
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
-import { TReview } from "./review/Review";
-import { useCurrentUser } from "@/redux/api/auth/authSlice";
+import LoaderSpinner from "@/pages/shared/loadingPage/LoadingSpinner";
 
-const ReviewHomepage = () => {
+
+export type TReview = {
+  review: string;
+  rating: number;
+  createdAt: string;
+  user: TUser;
+};
+
+const ReviewPanel = () => {
   const { data: response, isLoading } = useGetAllReviewsQuery(undefined);
-  const user = useAppSelector(useCurrentUser)
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [showOverlay, setShowOverlay] = useState(false);
-
-  // Check if user is logged in, otherwise show the overlay
-  useEffect(() => {
-    if (!user) {
-      setShowOverlay(true);
-    } else {
-      setShowOverlay(false);
-    }
-  }, [user]);
-
-  const handleLoginClick = () => {
-    navigate("/login", { state: { from: location } });
-  };
 
   const reviews: TReview[] = response?.data || [];
+  console.log("review data", reviews);
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center lg:py-32">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
+      <LoaderSpinner/>
     );
   }
 
@@ -45,33 +30,24 @@ const ReviewHomepage = () => {
     return <p>No reviews available at the moment.</p>;
   }
 
+  // Calculate overall site's rating (average rating)
   const overallRating = (
-    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+    reviews.reduce(
+      (sum, review) => sum + parseFloat(review.rating.toString()),
+      0
+    ) / reviews.length
   ).toFixed(1);
+
+  // Select the last two reviews
+  const lastTwoReviews = reviews.slice(-2);
 
   // Convert overall rating to an integer to handle the star display
   const fullStars = Math.floor(parseFloat(overallRating));
   const hasHalfStar = parseFloat(overallRating) - fullStars >= 0.5;
 
   return (
-    <div className="relative lg:py-24 md:py-16 max-w-7xl mx-auto">
-      {/* Black overlay for non-logged-in users */}
-      {showOverlay && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded shadow-lg text-center">
-            <p className="text-xl font-bold text-gray-800 mb-4">
-              Please log in to view reviews
-            </p>
-            <button
-              onClick={handleLoginClick}
-              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark"
-            >
-              Login
-            </button>
-          </div>
-        </div>
-      )}
-
+    <div className="max-w-7xl mx-auto">
+      <ReviewForm />
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 text-primary mt-8">
         User Reviews
       </h2>
@@ -123,7 +99,7 @@ const ReviewHomepage = () => {
       </div>
 
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {reviews.map((review: TReview, index: number) => (
+        {lastTwoReviews.map((review, index: number) => (
           <div
             key={index}
             className="p-6 bg-white shadow-lg rounded-lg border border-gray-200 flex flex-col md:flex-row items-start space-x-4 hover:shadow-xl transition-shadow duration-300 ease-in-out"
@@ -132,8 +108,8 @@ const ReviewHomepage = () => {
               <div className="avatar">
                 <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden">
                   <img
-                    src={review.user.image}
-                    alt={`${review.user.name}'s avatar`}
+                    src={review.user?.img || ""}
+                    alt={`${review.user?.name || "User"}'s avatar`}
                     className="object-cover w-full h-full"
                   />
                 </div>
@@ -142,7 +118,7 @@ const ReviewHomepage = () => {
             <div className="mt-4 md:mt-0 md:ml-4 flex-1">
               <div className="flex items-center justify-between">
                 <div className="text-xl font-bold text-primary">
-                  {review.user.name}
+                  {review.user?.name || "Anonymous"}
                 </div>
                 <div className="text-sm text-gray-500">
                   {new Date(review.createdAt).toLocaleDateString()}
@@ -170,8 +146,15 @@ const ReviewHomepage = () => {
           </div>
         ))}
       </div>
+      <div className="text-center my-5">
+        <Link to="/review">
+          <button className="text-xl font-bold text-white bg-primary px-3 lg:px-9 py-2 lg:py-4 hover:bg-hover rounded-md">
+            See All Reviews
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default ReviewHomepage;
+export default ReviewPanel;

@@ -2,7 +2,10 @@ import Hero from "./Hero";
 
 import FeaturedService from "./FeaturedService";
 import PageTitle from "../shared/PageTitleHelmet/PageTitle";
-import ReviewSection from "./review/Review";
+
+import ReviewHomepage from "./review/ReviewHomePage";
+import ReviewForm from "./review/ReviewForm";
+import ReviewSection from "./ReviewSection";
 
 const HomePage = () => {
   return (
@@ -17,7 +20,10 @@ const HomePage = () => {
         </h1>
         <FeaturedService />
       </div>
-      <ReviewSection></ReviewSection>
+      
+      <ReviewHomepage/>
+    
+     
     </div>
   );
 };

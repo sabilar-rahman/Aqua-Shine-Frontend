@@ -37,6 +37,7 @@ export type TUser = {
 
 
   export type TReview = {
+    _id:string;
     review: string;
     rating: number;
     createdAt: string;

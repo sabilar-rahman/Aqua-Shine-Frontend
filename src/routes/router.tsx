@@ -13,8 +13,10 @@ import Login from "@/pages/AuthPage/Login";
 import ErrorPage from "@/utils/ErrorPage";
 import { userRoutes } from "./userRoutes";
 import HomePage from "@/pages/home/HomePage";
-import Review from "@/pages/home/review/Review";
 import ServiceDetail from "@/pages/Services/ServiceDetails";
+import AllReviewPage from "@/pages/AllReview/AllReviewPage";
+
+
 
 const router = createBrowserRouter([
   {
@@ -43,10 +45,11 @@ const router = createBrowserRouter([
         path: "/compare",
         element: <Compare />,
       },
+
       {
         path: "/reviews",
-        element: <Review />,
-      },
+        element: <AllReviewPage/>,
+      }
     ],
   },
   {

@@ -66,8 +66,7 @@ const Booking = () => {
       <div className="text-center py-20">
         <h1 className="text-3xl font-bold text-[#2A9D8F]">
           Please go back to the services page &
-          <br /> select a service and time slot
-          to proceed with your booking.
+          <br /> select a service and time slot to proceed with your booking.
         </h1>
 
         <p className="text-xl mt-4"></p>
@@ -116,13 +115,13 @@ const Booking = () => {
                   htmlFor="userName"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  User Name
+                  Customer Name
                 </label>
                 <input
                   id="userName"
                   type="text"
                   {...register("userName", {
-                    required: "User name is required",
+                    required: "Customer Name is required",
                   })}
                   placeholder="Enter your name"
                   defaultValue={name}
@@ -187,14 +186,23 @@ const Booking = () => {
                 >
                   Address
                 </label>
-                <input
+                {/* <input
                   id="address"
                   type="text"
                   {...register("address", { required: "Address is required" })}
                   placeholder="Enter your address"
                   defaultValue={address}
                   className="mt-1 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                /> */}
+                <textarea
+                  id="address"
+                  {...register("address", { required: "Address is required" })}
+                  placeholder="Enter your address"
+                  defaultValue={address}
+                  className="mt-1 p-3 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  rows={4} // You can adjust the number of rows as needed
                 />
+
                 {errors.address && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.address.message}
@@ -299,7 +307,7 @@ const Booking = () => {
                   htmlFor="registrationPlate"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Registration Plate
+                 Car Registration Plate Number
                 </label>
                 <input
                   id="registrationPlate"
@@ -322,7 +330,7 @@ const Booking = () => {
                   htmlFor="selectedTime"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Selected Time
+                  Selected Slot Time
                 </label>
                 <input
                   id="selectedTime"
