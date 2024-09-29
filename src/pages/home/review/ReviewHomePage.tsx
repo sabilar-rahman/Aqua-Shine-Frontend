@@ -4,17 +4,16 @@ import { useEffect } from 'react';
 
 import { useGetAllReviewsQuery } from "@/redux/api/UserApi/reviewApi";
 import { TReview } from "@/types";
-import { Link, useNavigate } from "react-router-dom";
-import ReviewForm from "./ReviewForm";
+import { Link } from "react-router-dom";
+
 import LoaderSpinner from "../../shared/loadingPage/LoadingSpinner";
-import { useAppSelector } from "@/redux/hook";
-import { useCurrentUser } from "@/redux/api/auth/authSlice";
+
 import { formatDate } from "@/pages/AllReview/AllReviewPage";
 
 const ReviewHomePage = () => {
   const { data: response, isLoading } = useGetAllReviewsQuery(undefined);
-  const isLoggedIn = useAppSelector(useCurrentUser); // Replace with your actual auth state selector
-  const navigate = useNavigate();
+  // const isLoggedIn = useAppSelector(useCurrentUser); // Replace with your actual auth state selector
+  // const navigate = useNavigate();
 
   useEffect(()=>{
     AOS.init({duration:1200})
@@ -46,10 +45,7 @@ const ReviewHomePage = () => {
   const fullStars = Math.floor(parseFloat(overallRating));
   const hasHalfStar = parseFloat(overallRating) - fullStars >= 0.5;
 
-  // Function to handle login redirect
-  const handleLoginRedirect = () => {
-    navigate("/login"); // Redirect to the login page
-  };
+
 
   return (
     <div className="container mx-auto">
@@ -101,24 +97,7 @@ const ReviewHomePage = () => {
         </div>
       </div>
 
-      {/* Black overlay for non-logged-in users */}
-      <div className="relative">
-        {!isLoggedIn && (
-          <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white z-10 rounded-lg">
-            <p className="text-xl font-semibold mb-4">
-              Please log in to post a comment.
-            </p>
-            <button
-              onClick={handleLoginRedirect}
-              className="bg-primary px-6 py-3 text-lg font-bold rounded-md hover:bg-hover transition duration-300"
-            >
-              Go to Login
-            </button>
-          </div>
-        )}
-        {/* Review Form */}
-        <ReviewForm />
-      </div>
+
 
       {/* User Reviews Section */}
       <div className='' data-aos="fade-right">

@@ -2,9 +2,8 @@ import Hero from "./Hero";
 
 import FeaturedService from "./FeaturedService";
 import PageTitle from "../shared/PageTitleHelmet/PageTitle";
-
-import ReviewHomepage from "./review/ReviewHomePage";
-
+import ReviewForm from "./review/ReviewForm";
+import ReviewHomePage from "./review/ReviewHomePage";
 
 const HomePage = () => {
   return (
@@ -19,10 +18,14 @@ const HomePage = () => {
         </h1>
         <FeaturedService />
       </div>
-      
-      <ReviewHomepage/>
-    
-     
+
+      <div className="container  mx-auto py-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <ReviewForm />
+        <ReviewHomePage />
+        </div>
+        
+      </div>
     </div>
   );
 };

@@ -9,13 +9,17 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       // providesTags: ["reviews"],
     }),
+
+
     getAllbookingsByEmail: builder.query({
       query: (email: string) => ({
         url: `/bookings/${email}`, // Pass email as a query parameter
         method: "GET",
       }),
-      // providesTags: ["bookings"], // Uncomment if you are using tags for caching
+      //  providesTags: ["bookings"], //  for caching
     }),
+
+
 
     createBooking: builder.mutation({
       query: (slotData) => ({

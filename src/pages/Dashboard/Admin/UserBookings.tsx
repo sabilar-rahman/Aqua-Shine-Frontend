@@ -44,7 +44,7 @@ const UserBookings = () => {
               <tr key={booking.tran_id}>
                 <td>
                   <div className="flex items-center gap-3">
-                    <div className="avatar">
+                    {/* <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
                           src={
@@ -55,7 +55,7 @@ const UserBookings = () => {
                           alt="Customer Avatar"
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div>
                       <div className="font-bold">
                         {

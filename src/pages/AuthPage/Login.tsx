@@ -16,8 +16,8 @@ const Login = () => {
 
   const { handleSubmit, reset, register } = useForm<TUser>({
     defaultValues: {
-      email: "web@programming-hero.com",
-      password: "ph-password",
+      email: "",
+      password: "",
     },
   });
 
